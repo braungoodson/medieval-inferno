@@ -6,7 +6,16 @@ var namePool = ["Anderson","Rebbecca","Phung","Kacey","Janina","Evan","Nicholle"
 var server = net.createServer(function(connection){
   var player = {
     id: uuid.v4(),
-    name: namePool[Math.floor(Math.random()*199)]
+    name: namePool[Math.floor(Math.random()*199)],
+    health: 10,
+    gold: 1,
+    weapons: {
+      sword: {
+        damage: 1
+      }
+    },
+    armor: 1,
+    help: 0
   };
   players[player.id] = player;
   players.length++;
@@ -21,7 +30,9 @@ var server = net.createServer(function(connection){
     connection.write('You are alone.\n');
   }
   connection.on('data',function(d){
-    connection.write(d.toString());
+    if (d.toString().length > 1) {
+      parse(connection,d.toString(),player);
+    }
   });
   connection.on('end',function(){
     process.stdout.write(getFarewell(player));
@@ -38,6 +49,20 @@ function getFarewell (player) {
 function getWelcome (player) {
   return '\033[34mWelcome, '+player.name+'\033[0m.\n';
 }
-function getIntro() {
+function getIntro () {
   return '\033[101m \033[101m \033[41m \033[41m \033[0m\033[7m Medieval Inferno \033[0m\n';
+}
+function getHelp (player) {
+  return '- Commands:\n\thelp\n\tcharacter\n';
+}
+function getCharacter (player) {
+  return 'Name: '+player.name+'\nHealth: '+player.health+'\nGold: '+player.gold+'\n';
+}
+function parse (connection,data,player) {
+  if (data.match(/help/g)) {
+    connection.write(getHelp(player));
+  }
+  if (data.match(/character/g)) {
+    connection.write(getCharacter(player));
+  }
 }
