@@ -1,0 +1,27 @@
+{
+  "name": "medieval-inferno",
+  "version": "0.0.0",
+  "description": "CLI MMO RPG",
+  "main": "medieval-inferno.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/braungoodson/medieval-inferno"
+  },
+  "keywords": [
+    "cli",
+    "mmo",
+    "rpg",
+    "mmorpg"
+  ],
+  "author": "Braun Goodson <braungoodson@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/braungoodson/medieval-inferno/issues"
+  },
+  "dependencies": {
+    "node-uuid": "~1.4.1"
+  }
+}
