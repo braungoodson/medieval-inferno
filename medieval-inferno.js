@@ -29,10 +29,12 @@ var server = net.createServer(function(connection){
   } else {
     connection.write('You are alone.\n');
   }
+  connection.write(getPrompt());
   connection.on('data',function(d){
     if (d.toString().length > 1) {
       parse(connection,d.toString(),player);
     }
+    connection.write(getPrompt());
   });
   connection.on('end',function(){
     process.stdout.write(getFarewell(player));
@@ -43,6 +45,9 @@ server.listen(10000,function(){
   process.stdout.write(getIntro());
   process.stdout.write('* Server alive on 10000.\n')
 });
+function getPrompt () {
+  return '\033[31m--> \033[0m';
+}
 function getFarewell (player) {
   return '\033[90mFarewell, '+player.name+'.\n';
 }
@@ -56,7 +61,7 @@ function getHelp (player) {
   return '- Commands:\n\thelp\n\tcharacter\n';
 }
 function getCharacter (player) {
-  return 'Name: '+player.name+'\nHealth: '+player.health+'\nGold: '+player.gold+'\n';
+  return JSON.stringify(player,null,2)+'\n';
 }
 function parse (connection,data,player) {
   if (data.match(/help/g)) {
