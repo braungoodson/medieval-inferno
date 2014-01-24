@@ -10,7 +10,7 @@ var namePool = ["Anderson","Rebbecca","Phung","Kacey","Janina","Evan","Nicholle"
 var server = net.createServer(function(connection){
   var player = {
     id: uuid.v4(),
-    name: namePool[players.length],
+    name: namePool[Math.floor(Math.random()*199)],
     health: 2,
     gold: 1,
     weapons: {
