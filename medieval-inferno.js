@@ -65,7 +65,7 @@ function getIntro () {
   return '\033[101m \033[101m \033[41m \033[41m \033[0m\033[7m Medieval Inferno \033[0m\n';
 }
 function getHelp (player) {
-  return 'help\ncharacter\nlocation\nattack <playerName>\ngo to <locationName>\ntrade gold for armor\n';
+  return 'help\ncharacter\nlocation\nattack <playerName>\ngo to <locationName>\ntrade gold for armor\ndiscover\n';
 }
 function getCharacter (player) {
   var c = '';
@@ -161,6 +161,19 @@ function tradeGoldForArmor (player,t) {
     player.connection.write('You cannot trade gold for armor, you are not in The Town.\n');
   }
 }
+function discover (player) {
+  var p = '';
+  for (var i in players) {
+    if ((players[i].location == player.location) && (players[i].name != player.name)) {
+      p += players[i].name + ' ';
+    }
+  }
+  if (p != '') {
+    player.connection.write('You can see: '+p+'\n');
+  } else {
+    player.connection.write('You can see no one.\n');
+  }
+}
 function parse (connection,data,player) {
   if (data.match(/help/g)) {
     connection.write(getHelp(player));
@@ -174,5 +187,7 @@ function parse (connection,data,player) {
     goTo(player,data.slice(6,data.length-1));
   } else if (data.match(/trade gold for armor/g)) {
     tradeGoldForArmor(player);
+  } else if (data.match(/discover/g)) {
+    discover(player);
   }
 }
