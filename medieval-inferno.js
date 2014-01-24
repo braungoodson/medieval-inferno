@@ -170,10 +170,10 @@ function discover (player) {
   }
   if (p != '') {
     player.connection.write('You can see: '+p+'\n');
-    player.connection.write('You can go to The Castle, The Town, The Outskirts');
+    player.connection.write('You can go to The Castle, The Town, The Outskirts\n');
   } else {
     player.connection.write('You can see no one.\n');
-    player.connection.write('You can go to The Castle, The Town, The Outskirts');
+    player.connection.write('You can go to The Castle, The Town, The Outskirts\n');
   }
 }
 function parse (connection,data,player) {
