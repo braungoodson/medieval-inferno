@@ -154,7 +154,7 @@ function tradeGoldForArmor (player,t) {
       player.armor++;
     } else {
       process.stdout.write(player.name+' tries to trade gold for armor, but they don\'t have the gold.\n');
-      player.connection.write('You cannot trade gold for armor, you are not in The Town.\n');     
+      player.connection.write('You cannot trade gold for armor, but you don\'t have the gold.\n');     
     }
   } else {
     process.stdout.write(player.name+' tries to trade gold for armor, but they are not in The Town.\n');
